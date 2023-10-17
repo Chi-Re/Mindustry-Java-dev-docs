@@ -3,6 +3,8 @@
 ## 1.报错消息
 阅读之前请切记，这个方法有不确定性，慎用。
 
+并且可能导致其他jar文件运行失败。
+
 ### :jar
 ```text
 > Task :jar UP-TO-DATE
@@ -65,7 +67,7 @@ BUILD SUCCESSFUL in 1s
 
 
 ## 3.注意事项
-不过再运行的话可能会有别的报错
+不过再运行的话可能会有别的报错(已解决，请看4)
 ### :jar
 ```text
 Error: keywords 'java|openjdk version' not found in 'warning: no leading - on line 3 '
@@ -113,6 +115,50 @@ BUILD SUCCESSFUL in 5s
 
 仍然，这个方法不确定性很高，记得注意。
 
-如果能有更好的方法，可以联系我。
 
+## 4.其他方法
+如果你觉得上面的报错特别烦人的话，可以试试以下方法
 
+同样的，请在```{JAVA安装路径}\jdk-17\lib```下找到```jvm.cfg```，这是jvm的配置文件
+
+将文件内所有参数删除后，添加如下参数：
+```text
+-j9vm KNOWN
+-hotspot IGNORE
+-classic IGNORE
+-native IGNORE
+-green IGNORE
+```
+
+这个方法同样可以解决`:jarAndroid`报错。
+```text
+下午 10:29:11: 正在执行 'jarAndroid'…
+
+aliyun repositories
+aliyun allprojects CrimsonStar
+> Task :compileJava UP-TO-DATE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :jarAndroid
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 4s
+3 actionable tasks: 2 executed, 1 up-to-date
+下午 10:29:16: 执行完成 'jarAndroid'。
+```
+
+注意！！！
+
+这个方法会导致命令行中`java -version`产生报错
+```text
+Error: missing `j9vm' JVM at `C:\Program Files\Java\jdk-17\bin\j9vm\jvm.dll'.
+Please install or use the JRE or JDK that contains these missing components.
+```
+
+结果就是你的mindustry启动不了了...(不过如果你是臭猫的压缩包安装的话没事)
