@@ -38,6 +38,7 @@ Mindustry 主要作者 Anuken 在 Github 上提供了 Mod 开发环境的模板�
 ## JAVA开发疑难杂症(如:报错，报错和报错)
 **报错:**
 * [jarAndroid 虚拟机创建失败](data/JAVA开发疑难杂症/jarAndroid%20虚拟机创建失败.md)
+* [git上传失败](data/JAVA开发疑难杂症/git上传失败.md)
 
 ***
 # 关于
