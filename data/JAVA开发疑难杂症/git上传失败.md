@@ -24,7 +24,7 @@ To https://github.com/Chi-Re/Mindustry-Java-dev-docs.git
 Done
 ```
 
-然后就完美解决啦。
+然后就解决啦。
 
 # 教程来源
 [Github报错——Unknown SSL protocol error in connection to github.com:443](https://blog.csdn.net/pary__for/article/details/114393613)
