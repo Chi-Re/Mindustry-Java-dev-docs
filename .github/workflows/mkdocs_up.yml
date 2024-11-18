@@ -36,7 +36,7 @@ jobs:
         run: |
           cd ../
           mkdocs build
-          mv ./site Mindustry-Java-dev-docs
+          mv ./site MindustryModDocs
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
