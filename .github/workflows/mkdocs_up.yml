@@ -32,5 +32,16 @@ jobs:
           mv README.md index.md
           mv mkdocs.yml ../
           cd ../
-          ls
+          
+      - name: Generate docs
+        run: |
+          mkdocs build
+          
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_branch: gh-pages  # 目标仓库的分支
+          publish_dir: ./site
+          repository: Chi-Re/MindustryModDocs  # 目标仓库的全名
         
