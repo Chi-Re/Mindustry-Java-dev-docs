@@ -1058,32 +1058,32 @@
 <p>注意:使用的是TextureRegion类，这也是官方的使用方法</p>
 <p>这里使用的是Core.atlas.find()查找贴图文件</p>
 <p>一般我建议使用方法来调用，这样可以大大提高代码的整洁，还可以防止有吊毛直接复制你的代码(不是)</p>
-<p>例如:</p>
-<pre><code class="language-java">public static TextureRegion Load(String name) {
-    return Core.atlas.find(name);
-}
-</code></pre>
-<p>使用时:</p>
-<pre><code class="language-java">public TextureRegion 贴图名称 = Load(&quot;贴图名称&quot;);
-</code></pre>
+<p>例如:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">TextureRegion</span><span class="w"> </span><span class="nf">Load</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Core</span><span class="p">.</span><span class="na">atlas</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>使用时:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">TextureRegion</span><span class="w"> </span><span class="n">贴图名称</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Load</span><span class="p">(</span><span class="s">&quot;贴图名称&quot;</span><span class="p">);</span>
+</code></pre></div></p>
 <hr />
 <p>注意!!!</p>
 <p>自己的贴图名称需要符合<code>模组名称-贴图名称</code>才能调用，不过也记得检查名称是否已经被代码补齐。</p>
 <p>关于模组名称的获取请查看 <a href="../../%E6%A8%A1%E7%BB%84/%E8%A7%84%E8%8C%83%E6%A8%A1%E7%BB%84%E5%90%8D%E7%A7%B0%E8%8E%B7%E5%8F%96/">规范模组名称获取</a></p>
 <h2 id="2">2.原理</h2>
-<p>不好解释，直接看源码</p>
-<pre><code class="language-java">/**
- * Returns the first region found with the specified name. This method's performance is no longer garbage.
- * @return The region, or the error region (if it is defined), or null.
- */
-public AtlasRegion find(String name){
-    AtlasRegion r = regionmap.get(name, error);
-    if(r == null &amp;&amp; !name.equals(&quot;error&quot;))
-        throw new IllegalArgumentException(&quot;The region \&quot;&quot; + name + &quot;\&quot; does not exist!&quot;);
-    return r;
-}
-</code></pre>
-<p>游戏启动时是会返回 regionmap 这个 ObjectMap<String, AtlasRegion> 可以理解为一个盒子，每次游戏启动是都会将贴图放进盒子，可以通过名字调用盒子里的贴图。</p>
+<p>不好解释，直接看源码
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cm">/**</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cm"> * Returns the first region found with the specified name. This method&#39;s performance is no longer garbage.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cm"> * @return The region, or the error region (if it is defined), or null.</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cm"> */</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kd">public</span><span class="w"> </span><span class="n">AtlasRegion</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">AtlasRegion</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regionmap</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">name</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">))</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;The region \&quot;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;\&quot; does not exist!&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
+</code></pre></div>
+游戏启动时是会返回 regionmap 这个 ObjectMap<String, AtlasRegion> 可以理解为一个盒子，每次游戏启动是都会将贴图放进盒子，可以通过名字调用盒子里的贴图。</p>
 
 
 

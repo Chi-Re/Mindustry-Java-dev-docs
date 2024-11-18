@@ -1104,74 +1104,74 @@
 <p>阅读之前请切记，这个方法有不确定性，慎用。</p>
 <p>并且可能导致其他jar文件运行失败。</p>
 <h3 id="jar">:jar</h3>
-<pre><code class="language-text">&gt; Task :jar UP-TO-DATE
-Error: Could not create the Java Virtual Machine.
-Could not create the Java Virtual Machine.
-
--Djava.ext.dirs=F:\android-sdk-windows\build-tools\29.0.3\lib is not supported.  Use -classpath instead.
-Error: A fatal exception has occurred. Program will exit.
-A fatal exception has occurred. Program will exit.
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&gt; Task :jar UP-TO-DATE
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Error: Could not create the Java Virtual Machine.
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Could not create the Java Virtual Machine.
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>-Djava.ext.dirs=F:\android-sdk-windows\build-tools\29.0.3\lib is not supported.  Use -classpath instead.
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Error: A fatal exception has occurred. Program will exit.
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>A fatal exception has occurred. Program will exit.
+</code></pre></div>
 <h3 id="jarandroid">[jarAndroid]</h3>
-<pre><code class="language-text">上午 1:04:08: 正在执行 'jarAndroid'…
-
-aliyun repositories
-aliyun allprojects CrimsonStar
-&gt; Task :compileJava UP-TO-DATE
-&gt; Task :processResources NO-SOURCE
-&gt; Task :classes UP-TO-DATE
-&gt; Task :jar UP-TO-DATE
-Error: Could not create the Java Virtual Machine.
-Error: A fatal exception has occurred. Program will exit.
--Djava.ext.dirs=F:\android-sdk-windows\build-tools\29.0.3\lib is not supported.  Use -classpath instead.
-&gt; Task :jarAndroid
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/8.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 1s
-3 actionable tasks: 1 executed, 2 up-to-date
-上午 1:04:10: 执行完成 'jarAndroid'。
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>上午 1:04:08: 正在执行 &#39;jarAndroid&#39;…
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>aliyun repositories
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>aliyun allprojects CrimsonStar
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>&gt; Task :compileJava UP-TO-DATE
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>&gt; Task :processResources NO-SOURCE
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>&gt; Task :classes UP-TO-DATE
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>&gt; Task :jar UP-TO-DATE
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>Error: Could not create the Java Virtual Machine.
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Error: A fatal exception has occurred. Program will exit.
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>-Djava.ext.dirs=F:\android-sdk-windows\build-tools\29.0.3\lib is not supported.  Use -classpath instead.
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>&gt; Task :jarAndroid
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>You can use &#39;--warning-mode all&#39; to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>For more on this, please refer to https://docs.gradle.org/8.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>BUILD SUCCESSFUL in 1s
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>3 actionable tasks: 1 executed, 2 up-to-date
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>上午 1:04:10: 执行完成 &#39;jarAndroid&#39;。
+</code></pre></div>
 <h2 id="2">2.解决方式</h2>
-<p>注意这里的报错消息</p>
-<pre><code class="language-text">-Djava.ext.dirs=F:\android-sdk-windows\build-tools\29.0.3\lib is not supported.  Use -classpath instead.
-</code></pre>
-<p>看来是因为<code>-Djava.ext.dirs</code>的问题</p>
+<p>注意这里的报错消息
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>-Djava.ext.dirs=F:\android-sdk-windows\build-tools\29.0.3\lib is not supported.  Use -classpath instead.
+</code></pre></div>
+看来是因为<code>-Djava.ext.dirs</code>的问题</p>
 <p>那就好办了</p>
 <p>请找到<code>android-sdk</code>的文件路径，在<code>\build-tools\29.0.3</code>文件下的<code>d8.bat</code>文件。</p>
-<p>打开后，你会在最后一行看到</p>
-<pre><code class="language-text">call &quot;%java_exe%&quot; %javaOpts% -Djava.ext.dirs=&quot;%frameworkdir%&quot; -cp &quot;%jarpath%&quot; com.android.tools.r8.D8 %params%
-</code></pre>
-<p>更改<code>-Djava.ext.dirs=</code>为<code>-classpath</code>。</p>
+<p>打开后，你会在最后一行看到
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>call &quot;%java_exe%&quot; %javaOpts% -Djava.ext.dirs=&quot;%frameworkdir%&quot; -cp &quot;%jarpath%&quot; com.android.tools.r8.D8 %params%
+</code></pre></div>
+更改<code>-Djava.ext.dirs=</code>为<code>-classpath</code>。</p>
 <p>注意！<code>-classpath</code>后面是有空格，然后再是<code>"%frameworkdir%"</code></p>
-<p>更改后</p>
-<pre><code class="language-text">call &quot;%java_exe%&quot; %javaOpts% -classpath &quot;%frameworkdir%&quot; -cp &quot;%jarpath%&quot; com.android.tools.r8.D8 %params%
-</code></pre>
-<pre><code class="language-text">上午 12:24:40: 正在执行 'deploy'…
-
-aliyun repositories
-aliyun allprojects CrimsonStar
-&gt; Task :compileJava UP-TO-DATE
-&gt; Task :processResources NO-SOURCE
-&gt; Task :classes UP-TO-DATE
-&gt; Task :jar
-&gt; Task :jarAndroid
-&gt; Task :deploy
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/8.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 7s
-4 actionable tasks: 3 executed, 1 up-to-date
-上午 12:24:48: 执行完成 'deploy'。
-</code></pre>
+<p>更改后
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>call &quot;%java_exe%&quot; %javaOpts% -classpath &quot;%frameworkdir%&quot; -cp &quot;%jarpath%&quot; com.android.tools.r8.D8 %params%
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>上午 12:24:40: 正在执行 &#39;deploy&#39;…
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>aliyun repositories
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>aliyun allprojects CrimsonStar
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>&gt; Task :compileJava UP-TO-DATE
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>&gt; Task :processResources NO-SOURCE
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>&gt; Task :classes UP-TO-DATE
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>&gt; Task :jar
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>&gt; Task :jarAndroid
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>&gt; Task :deploy
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>You can use &#39;--warning-mode all&#39; to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>For more on this, please refer to https://docs.gradle.org/8.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>BUILD SUCCESSFUL in 7s
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>4 actionable tasks: 3 executed, 1 up-to-date
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>上午 12:24:48: 执行完成 &#39;deploy&#39;。
+</code></pre></div>
 
 
 

@@ -1057,85 +1057,85 @@
 <h2 id="1">1.制作</h2>
 <p>在官方源代码中有案例</p>
 <p>可以在<code>mindustry.net.BeControl</code>里找到</p>
-<pre><code class="language-java">package mindustry.net;
-
-import arc.*;
-import arc.files.*;
-import arc.func.*;
-import arc.util.*;
-import arc.util.serialization.*;
-import mindustry.*;
-import mindustry.core.*;
-import mindustry.gen.*;
-import mindustry.graphics.*;
-import mindustry.io.*;
-import mindustry.net.Administration.*;
-import mindustry.net.Packets.*;
-import mindustry.ui.*;
-import mindustry.ui.dialogs.*;
-
-import java.io.*;
-import java.net.*;
-
-import static mindustry.Vars.*;
-
-/** Handles control of bleeding edge builds. */
-public class BeControl{
-    private void download(String furl, Fi dest, Intc length, Floatc progressor, Boolp canceled, Runnable done, Cons&lt;Throwable&gt; error){
-        mainExecutor.submit(() -&gt; {
-            try{
-                HttpURLConnection con = (HttpURLConnection)new URL(furl).openConnection();
-                BufferedInputStream in = new BufferedInputStream(con.getInputStream());
-                OutputStream out = dest.write(false, 4096);
-
-                byte[] data = new byte[4096];
-                long size = con.getContentLength();
-                long counter = 0;
-                length.get((int)size);
-                int x;
-                while((x = in.read(data, 0, data.length)) &gt;= 0 &amp;&amp; !canceled.get()){
-                    counter += x;
-                    progressor.get((float)counter / (float)size);
-                    out.write(data, 0, x);
-                }
-                out.close();
-                in.close();
-                if(!canceled.get()) done.run();
-            }catch(Throwable e){
-                error.get(e);
-            }
-        });
-    }
-}
-</code></pre>
-<p>但作者的源代码中使用的是 private 我们无法在模组中引用，但没有关系，我们可以试试直接复制。</p>
-<pre><code class="language-java">public void download(String furl, Fi dest, Intc length, Floatc progressor, Boolp canceled, Runnable done, Cons&lt;Throwable&gt; error) {
-    mainExecutor.submit(() -&gt; {
-        try {
-            HttpURLConnection con = (HttpURLConnection) new URL(furl).openConnection();
-            BufferedInputStream in = new BufferedInputStream(con.getInputStream());
-            OutputStream out = dest.write(false, 4096);
-
-            byte[] data = new byte[4096];
-            long size = con.getContentLength();
-            long counter = 0;
-            length.get((int) size);
-            int x;
-            while ((x = in.read(data, 0, data.length)) &gt;= 0 &amp;&amp; !canceled.get()) {
-                counter += x;
-                progressor.get((float) counter / (float) size);
-                out.write(data, 0, x);
-            }
-            out.close();
-            in.close();
-            if (!canceled.get()) done.run();
-        } catch (Throwable e) {
-            error.get(e);
-        }
-    });
-}
-</code></pre>
-<p>好的方面是用的代码中没有和类绑定的变量，可以轻松复制。<br>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">mindustry.net</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">arc.*</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">arc.files.*</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">arc.func.*</span><span class="p">;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">arc.util.*</span><span class="p">;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">arc.util.serialization.*</span><span class="p">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.*</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.core.*</span><span class="p">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.gen.*</span><span class="p">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.graphics.*</span><span class="p">;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.io.*</span><span class="p">;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.net.Administration.*</span><span class="p">;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.net.Packets.*</span><span class="p">;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.ui.*</span><span class="p">;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mindustry.ui.dialogs.*</span><span class="p">;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.*</span><span class="p">;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="kn">import static</span><span class="w"> </span><span class="nn">mindustry.Vars.*</span><span class="p">;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="cm">/** Handles control of bleeding edge builds. */</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BeControl</span><span class="p">{</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">furl</span><span class="p">,</span><span class="w"> </span><span class="n">Fi</span><span class="w"> </span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="n">Intc</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">Floatc</span><span class="w"> </span><span class="n">progressor</span><span class="p">,</span><span class="w"> </span><span class="n">Boolp</span><span class="w"> </span><span class="n">canceled</span><span class="p">,</span><span class="w"> </span><span class="n">Runnable</span><span class="w"> </span><span class="n">done</span><span class="p">,</span><span class="w"> </span><span class="n">Cons</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;</span><span class="w"> </span><span class="n">error</span><span class="p">){</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="n">mainExecutor</span><span class="p">.</span><span class="na">submit</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">            </span><span class="k">try</span><span class="p">{</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">                </span><span class="n">HttpURLConnection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpURLConnection</span><span class="p">)</span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="n">furl</span><span class="p">).</span><span class="na">openConnection</span><span class="p">();</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">                </span><span class="n">BufferedInputStream</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedInputStream</span><span class="p">(</span><span class="n">con</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">());</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">                </span><span class="n">OutputStream</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dest</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="mi">4096</span><span class="p">);</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">                </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">byte</span><span class="o">[</span><span class="mi">4096</span><span class="o">]</span><span class="p">;</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">                </span><span class="kt">long</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">getContentLength</span><span class="p">();</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">                </span><span class="kt">long</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">                </span><span class="n">length</span><span class="p">.</span><span class="na">get</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">size</span><span class="p">);</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">                </span><span class="k">while</span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">length</span><span class="p">))</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">canceled</span><span class="p">.</span><span class="na">get</span><span class="p">()){</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">                    </span><span class="n">counter</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">                    </span><span class="n">progressor</span><span class="p">.</span><span class="na">get</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">counter</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">size</span><span class="p">);</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">                    </span><span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">                </span><span class="n">out</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">                </span><span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">canceled</span><span class="p">.</span><span class="na">get</span><span class="p">())</span><span class="w"> </span><span class="n">done</span><span class="p">.</span><span class="na">run</span><span class="p">();</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">            </span><span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="n">Throwable</span><span class="w"> </span><span class="n">e</span><span class="p">){</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">                </span><span class="n">error</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="p">}</span>
+</code></pre></div>
+但作者的源代码中使用的是 private 我们无法在模组中引用，但没有关系，我们可以试试直接复制。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">furl</span><span class="p">,</span><span class="w"> </span><span class="n">Fi</span><span class="w"> </span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="n">Intc</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">Floatc</span><span class="w"> </span><span class="n">progressor</span><span class="p">,</span><span class="w"> </span><span class="n">Boolp</span><span class="w"> </span><span class="n">canceled</span><span class="p">,</span><span class="w"> </span><span class="n">Runnable</span><span class="w"> </span><span class="n">done</span><span class="p">,</span><span class="w"> </span><span class="n">Cons</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;</span><span class="w"> </span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">mainExecutor</span><span class="p">.</span><span class="na">submit</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">            </span><span class="n">HttpURLConnection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpURLConnection</span><span class="p">)</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="n">furl</span><span class="p">).</span><span class="na">openConnection</span><span class="p">();</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">            </span><span class="n">BufferedInputStream</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedInputStream</span><span class="p">(</span><span class="n">con</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">());</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">            </span><span class="n">OutputStream</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dest</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="mi">4096</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">            </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">byte</span><span class="o">[</span><span class="mi">4096</span><span class="o">]</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">getContentLength</span><span class="p">();</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">            </span><span class="n">length</span><span class="p">.</span><span class="na">get</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">length</span><span class="p">))</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">canceled</span><span class="p">.</span><span class="na">get</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">                </span><span class="n">counter</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">                </span><span class="n">progressor</span><span class="p">.</span><span class="na">get</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">                </span><span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">            </span><span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">canceled</span><span class="p">.</span><span class="na">get</span><span class="p">())</span><span class="w"> </span><span class="n">done</span><span class="p">.</span><span class="na">run</span><span class="p">();</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Throwable</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">            </span><span class="n">error</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="p">}</span>
+</code></pre></div>
+好的方面是用的代码中没有和类绑定的变量，可以轻松复制。<br>
 (所以官方为什么要私人化呢？)</p>
 <h2 id="2">2.使用</h2>
 <ul>
@@ -1146,30 +1146,30 @@ public class BeControl{
 <li>canceled:<del>寸止</del> 取消下载</li>
 <li>done:下载完成后运行的代码</li>
 </ul>
-<p>有亿点多，但霉逝，很多都是可以直接套模板的</p>
-<pre><code class="language-java">boolean[] cancel = {false};
-float[] progress = {0};
-int[] length = {0};
-Fi file = &quot;保存路径&quot;
-String updateUrl = &quot;下载文件网址&quot;;
-
-BaseDialog dialogdown = new BaseDialog(&quot;@be.updating&quot;);
-download(updateUrl, file, i -&gt; length[0] = i, v -&gt; progress[0] = v, () -&gt; cancel[0], () -&gt; {
-//这里写下载完成后运行的代码
-}, ed -&gt; {
-    dialogdown.hide();
-    ui.showException(ed);
-});
-
-dialogdown.cont.add(new Bar(() -&gt; length[0] == 0 ? Core.bundle.get(&quot;be.updating&quot;) : (int)(progress[0] * length[0]) / 1024/ 1024 + &quot;/&quot; + length[0]/1024/1024 + &quot; MB&quot;, () -&gt; Pal.accent, () -&gt; progress[0])).width(400f).height(70f);
-dialogdown.buttons.button(&quot;@cancel&quot;, Icon.cancel, () -&gt; {
-    cancel[0] = true;
-    dialogdown.hide();
-}).size(210f, 64f);
-dialogdown.setFillParent(false);
-dialogdown.show();
-</code></pre>
-<p>大概效果:
+<p>有亿点多，但霉逝，很多都是可以直接套模板的
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">boolean</span><span class="o">[]</span><span class="w"> </span><span class="n">cancel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="kc">false</span><span class="p">};</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">float</span><span class="o">[]</span><span class="w"> </span><span class="n">progress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">Fi</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;保存路径&quot;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">String</span><span class="w"> </span><span class="n">updateUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;下载文件网址&quot;</span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">BaseDialog</span><span class="w"> </span><span class="n">dialogdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BaseDialog</span><span class="p">(</span><span class="s">&quot;@be.updating&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">download</span><span class="p">(</span><span class="n">updateUrl</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">length</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">progress</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">cancel</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1">//这里写下载完成后运行的代码</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">},</span><span class="w"> </span><span class="n">ed</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">dialogdown</span><span class="p">.</span><span class="na">hide</span><span class="p">();</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">ui</span><span class="p">.</span><span class="na">showException</span><span class="p">(</span><span class="n">ed</span><span class="p">);</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">});</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">dialogdown</span><span class="p">.</span><span class="na">cont</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Bar</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">length</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">Core</span><span class="p">.</span><span class="na">bundle</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;be.updating&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">progress</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">length</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">length</span><span class="o">[</span><span class="mi">0</span><span class="o">]/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; MB&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Pal</span><span class="p">.</span><span class="na">accent</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">progress</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)).</span><span class="na">width</span><span class="p">(</span><span class="mi">400</span><span class="n">f</span><span class="p">).</span><span class="na">height</span><span class="p">(</span><span class="mi">70</span><span class="n">f</span><span class="p">);</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">dialogdown</span><span class="p">.</span><span class="na">buttons</span><span class="p">.</span><span class="na">button</span><span class="p">(</span><span class="s">&quot;@cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Icon</span><span class="p">.</span><span class="na">cancel</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="n">cancel</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="n">dialogdown</span><span class="p">.</span><span class="na">hide</span><span class="p">();</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">}).</span><span class="na">size</span><span class="p">(</span><span class="mi">210</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="n">f</span><span class="p">);</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">dialogdown</span><span class="p">.</span><span class="na">setFillParent</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="n">dialogdown</span><span class="p">.</span><span class="na">show</span><span class="p">();</span>
+</code></pre></div>
+大概效果:
 <img alt="" src="../img/%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6-%E6%95%88%E6%9E%9C.png?raw=true" /></p>
 <p>当然，你可以使用这种方法来实现更新模组，只不过这不在本章的教程中，可以自行探索。</p>
 <p><strong>注意！</strong><br>

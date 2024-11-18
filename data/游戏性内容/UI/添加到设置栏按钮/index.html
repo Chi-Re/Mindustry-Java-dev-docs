@@ -1040,26 +1040,24 @@
 <img alt="" src="../img/%E6%B7%BB%E5%8A%A0%E5%88%B0%E8%AE%BE%E7%BD%AE%E6%A0%8F%E6%8C%89%E9%92%AE-%E6%95%88%E6%9E%9C.png?raw=true" /></p>
 <h2 id="1">1.使用</h2>
 <p>类路径:<code>Vars.ui.settings.addCategory</code></p>
-<p>目前我建议使用</p>
-<pre><code class="language-text">addCategory(String name, @Nullable String region, Cons&lt;SettingsTable&gt; builder)
-</code></pre>
-<ul>
-<li>name:设置名称</li>
-<li>region:图片文件名称(规格:模组名称-贴图名称)</li>
-<li>builder:点击设置后运行的代码</li>
-</ul>
-<p>例如:</p>
-<pre><code class="language-java">Vars.ui.settings.addCategory(名称, 模组名称-贴图名称, settingsTable -&gt; {
-    settingsTable.pref(new SettingsMenuDialog.SettingsTable.Setting(&quot;name&quot;) {
-        @Override
-        public void add(SettingsMenuDialog.SettingsTable table) {
-            //这里是写页面布置的
-            table.row();
-        }
-    });
-});
-</code></pre>
-<p>差不多，目前我不确定的是<code>SettingsMenuDialog.SettingsTable.Setting("name")</code>这似乎没有问题，因为在实际测试中没有出现什么改变，主要影响<code>name</code>变量。</p>
+<p>目前我建议使用
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>addCategory(String name, @Nullable String region, Cons&lt;SettingsTable&gt; builder)
+</code></pre></div>
+* name:设置名称
+* region:图片文件名称(规格:模组名称-贴图名称)
+* builder:点击设置后运行的代码</p>
+<p>例如:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Vars</span><span class="p">.</span><span class="na">ui</span><span class="p">.</span><span class="na">settings</span><span class="p">.</span><span class="na">addCategory</span><span class="p">(</span><span class="n">名称</span><span class="p">,</span><span class="w"> </span><span class="n">模组名称</span><span class="o">-</span><span class="n">贴图名称</span><span class="p">,</span><span class="w"> </span><span class="n">settingsTable</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">settingsTable</span><span class="p">.</span><span class="na">pref</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">SettingsMenuDialog</span><span class="p">.</span><span class="na">SettingsTable</span><span class="p">.</span><span class="na">Setting</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nd">@Override</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">SettingsMenuDialog</span><span class="p">.</span><span class="na">SettingsTable</span><span class="w"> </span><span class="n">table</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">            </span><span class="c1">//这里是写页面布置的</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">            </span><span class="n">table</span><span class="p">.</span><span class="na">row</span><span class="p">();</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">});</span>
+</code></pre></div>
+差不多，目前我不确定的是<code>SettingsMenuDialog.SettingsTable.Setting("name")</code>这似乎没有问题，因为在实际测试中没有出现什么改变，主要影响<code>name</code>变量。</p>
 
 
 

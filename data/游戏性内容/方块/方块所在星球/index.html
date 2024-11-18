@@ -1059,21 +1059,21 @@
 <code>state.rules.sector.planet</code></p>
 <p>注意:请在方块的Building中使用</p>
 <h2 id="2">2.原理</h2>
-<p>调用Vars.class的state</p>
-<pre><code class="language-text">public static GameState state;
-</code></pre>
-<p>再通过GameState的rules</p>
-<pre><code class="language-text">/** The current game rules. */
-public Rules rules = new Rules();
-</code></pre>
-<p>再通过Rules的sector获取方块所在扇区</p>
-<pre><code class="language-text">/** Sector for saves that have them. */
-public @Nullable Sector sector;
-</code></pre>
-<p>再通过Sector的planet获取方块所在的星球</p>
-<pre><code class="language-text">public final Planet planet;
-</code></pre>
-<p>这算是一个典型的调用方式，很多方法都可以用类似方法调用</p>
+<p>调用Vars.class的state
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>public static GameState state;
+</code></pre></div>
+再通过GameState的rules
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/** The current game rules. */
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>public Rules rules = new Rules();
+</code></pre></div>
+再通过Rules的sector获取方块所在扇区
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/** Sector for saves that have them. */
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>public @Nullable Sector sector;
+</code></pre></div>
+再通过Sector的planet获取方块所在的星球
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>public final Planet planet;
+</code></pre></div>
+这算是一个典型的调用方式，很多方法都可以用类似方法调用</p>
 <p>不过注意null，这样的空指针是致命的</p>
 
 

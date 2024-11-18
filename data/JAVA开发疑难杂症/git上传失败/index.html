@@ -1054,21 +1054,21 @@
 <p>观前提醒，导致报错的原因有很多，但报错内容有可能一致。所以此方法不一定有用。</p>
 <hr />
 <h2 id="1">1.报错消息</h2>
-<pre><code class="language-text">fatal: unable to access 'https://github.com/Chi-Re/Mindustry-Java-dev-docs.git/': Unknown SSL protocol error in connection to github.com:443 
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>fatal: unable to access &#39;https://github.com/Chi-Re/Mindustry-Java-dev-docs.git/&#39;: Unknown SSL protocol error in connection to github.com:443 
+</code></pre></div>
 <h2 id="2">2.解决方式</h2>
 <p>直接打开git命令窗口(随便怎么打开都行)</p>
-<p>然后输入:</p>
-<pre><code class="language-text">git config http.sslVerify &quot;false&quot;
-</code></pre>
-<pre><code class="language-text">19:13:39.210: [Mindustry-Java模组开发] git -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/master:master
-Counting objects: 22, done.
-Delta compression using up to 4 threads.   
-remote: Resolving deltas: 100% (11/11), completed with 4 local objects.        
-To https://github.com/Chi-Re/Mindustry-Java-dev-docs.git
-    refs/heads/master:refs/heads/master 3341db9..63cad66
-Done
-</code></pre>
+<p>然后输入:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git config http.sslVerify &quot;false&quot;
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>19:13:39.210: [Mindustry-Java模组开发] git -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/master:master
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Counting objects: 22, done.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Delta compression using up to 4 threads.   
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>remote: Resolving deltas: 100% (11/11), completed with 4 local objects.        
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>To https://github.com/Chi-Re/Mindustry-Java-dev-docs.git
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    refs/heads/master:refs/heads/master 3341db9..63cad66
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>Done
+</code></pre></div>
 <p>然后就解决啦。</p>
 <h1 id="_1">教程来源</h1>
 <p><a href="https://blog.csdn.net/pary__for/article/details/114393613">Github报错——Unknown SSL protocol error in connection to github.com:443</a></p>

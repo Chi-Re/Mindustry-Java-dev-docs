@@ -980,36 +980,36 @@
 
 <h1 id="_1">关于模组名称获取</h1>
 <hr />
-<p>有官方的方法</p>
-<pre><code class="language-java">Vars.content.transformName(name);//返回含自己模组名字的name
-</code></pre>
-<p>注意! 这个方法可能出现错误! 请看代码。</p>
-<pre><code class="language-java">public void setCurrentMod(@Nullable LoadedMod mod){
-    this.currentMod = mod;
-}
-
-public String transformName(String name){
-    return currentMod == null ? name : currentMod.name + &quot;-&quot; + name;
-}
-</code></pre>
-<p>是的，这是在加载是指定currentMod来获取模组名字! 如果在模组加载完成后调用会返回错误的模组名字。</p>
-<p>我的建议是</p>
-<pre><code class="language-java">Vars.mods.getMod(你的模组类.class).name;
-</code></pre>
-<p>直接在模组列表中通过你的模组类获取模组名称，这里的名字是直接通过<code>mod.hjson</code>获取的，所以一定准确。请看代码。</p>
-<pre><code class="language-java">/** @return the loaded mod found by class, or null if not found. */
-public @Nullable LoadedMod getMod(Class&lt;? extends Mod&gt; type){
-    return mods.find(m -&gt; m.main != null &amp;&amp; m.main.getClass() == type);
-}
-</code></pre>
-<p>上面获取到后可以设为变量</p>
-<pre><code class="language-java">public static String modName;
-</code></pre>
-<p>并且使用以下的方法</p>
-<pre><code class="language-java">public static String getName(String add){
-    return modName + &quot;-&quot; + add;
-}
-</code></pre>
+<p>有官方的方法
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Vars</span><span class="p">.</span><span class="na">content</span><span class="p">.</span><span class="na">transformName</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="c1">//返回含自己模组名字的name</span>
+</code></pre></div>
+注意! 这个方法可能出现错误! 请看代码。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setCurrentMod</span><span class="p">(</span><span class="nd">@Nullable</span><span class="w"> </span><span class="n">LoadedMod</span><span class="w"> </span><span class="n">mod</span><span class="p">){</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">currentMod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">transformName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">currentMod</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">currentMod</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;-&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+</code></pre></div>
+是的，这是在加载是指定currentMod来获取模组名字! 如果在模组加载完成后调用会返回错误的模组名字。</p>
+<p>我的建议是
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Vars</span><span class="p">.</span><span class="na">mods</span><span class="p">.</span><span class="na">getMod</span><span class="p">(</span><span class="n">你的模组类</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">name</span><span class="p">;</span>
+</code></pre></div>
+直接在模组列表中通过你的模组类获取模组名称，这里的名字是直接通过<code>mod.hjson</code>获取的，所以一定准确。请看代码。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cm">/** @return the loaded mod found by class, or null if not found. */</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">public</span><span class="w"> </span><span class="nd">@Nullable</span><span class="w"> </span><span class="n">LoadedMod</span><span class="w"> </span><span class="nf">getMod</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Mod</span><span class="o">&gt;</span><span class="w"> </span><span class="n">type</span><span class="p">){</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mods</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">main</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">main</span><span class="p">.</span><span class="na">getClass</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">type</span><span class="p">);</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>上面获取到后可以设为变量
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modName</span><span class="p">;</span>
+</code></pre></div>
+并且使用以下的方法
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">add</span><span class="p">){</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">modName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;-&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">add</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
+</code></pre></div></p>
 
 
 

@@ -1035,17 +1035,15 @@
 <h1 id="_1">日志输出</h1>
 <hr />
 <h2 id="1">1.使用</h2>
-<pre><code class="language-java">public static  String logInfo(String info){
-    return &quot;[&quot; + ModName + &quot;] &quot; + info;
-}
-</code></pre>
-<ul>
-<li>ModName:模组名称</li>
-<li>info:输出内容</li>
-</ul>
-<p>例如</p>
-<pre><code class="language-java">Log.info(logInfo(&quot;#CHIRE# 模组加载&quot;));
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w">  </span><span class="n">String</span><span class="w"> </span><span class="nf">logInfo</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">info</span><span class="p">){</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;[&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ModName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;] &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">info</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
+</code></pre></div>
+* ModName:模组名称
+* info:输出内容</p>
+<p>例如
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="n">logInfo</span><span class="p">(</span><span class="s">&quot;#CHIRE# 模组加载&quot;</span><span class="p">));</span>
+</code></pre></div></p>
 <p>日志在<code>C:\Users\用户\AppData\Roaming\Mindustry\last_log.txt</code>中，一般是方便测试用的</p>
 
 
