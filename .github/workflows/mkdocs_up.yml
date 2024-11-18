@@ -36,16 +36,13 @@ jobs:
         run: |
           cd ../
           mkdocs build
+          mv ./site Mindustry-Java-dev-docs
           
       - name: Deploy
-        run: |
-          cd ../
-          cd ./site
-          git config --global user.email "you@example.com"
-          git config --global user.name "root"
-          git init
-          git add .
-          git commit -m "first commit"
-          git remote set-url origin https://${secrets.TOKEN}@github.com/Chi-Re/MindustryModDocs.git
-          git push origin main
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_branch: gh-pages  # 目标仓库的分支
+          publish_dir: ./site
+          repository: Chi-Re/MindustryModDocs  # 目标仓库的全名
         
