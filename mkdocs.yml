@@ -1,5 +1,5 @@
 site_name: Mindustry Mod Docs
-docs_dir: Mindustry-Java-dev-docs
+docs_dir: MindustryModDocs
 theme:
   name: material
   features:
