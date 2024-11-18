@@ -1,4 +1,4 @@
-# Mindustry-JavaMod-dev-docs
+# Mindustry-JavaMod-docs
 一个简单的模组开发文档，我的经验总结，需要创新但不知道怎么做的可以看看，但不保证一定完全正确，如果发现问题可以反馈到交流群或我
 
 建议有一定java基础后查看文档，因为我并不教java，想学习java请自己去学
