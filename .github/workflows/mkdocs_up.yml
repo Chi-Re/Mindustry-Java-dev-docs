@@ -19,5 +19,17 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: test
-        run: basename "$(pwd)"
+      - name: Upgrade pip
+        run: |
+          # install pip=>20.1 to use "pip cache dir"
+          python3 -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: python3 -m pip install -r ./requirements.txt
+
+      - name: Change the structure
+        run: |
+          mv README.md index.md
+          mv mkdocs.yml ../
+          ls
+        

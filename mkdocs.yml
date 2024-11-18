@@ -1,0 +1,8 @@
+site_name: Mindustry Mod Docs
+docs_dir: Mindustry-Java-dev-docs
+theme:
+  name: material
+  features:
+    - navigation.tracking
+extra_css:
+  - 'stylesheets/style.css'
