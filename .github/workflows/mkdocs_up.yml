@@ -31,5 +31,6 @@ jobs:
         run: |
           mv README.md index.md
           mv mkdocs.yml ../
+          cd ../
           ls
         
