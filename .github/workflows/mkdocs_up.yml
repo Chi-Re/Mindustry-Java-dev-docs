@@ -41,6 +41,8 @@ jobs:
         run: |
           cd ../
           cd ./site
+          git config --global user.email "you@example.com"
+          git config --global user.name "root"
           git init
           git add .
           git commit -m "first commit"
