@@ -31,10 +31,10 @@ jobs:
         run: |
           mv README.md index.md
           mv mkdocs.yml ../
-          cd ../
           
       - name: Generate docs
         run: |
+          cd ../
           mkdocs build
           
       - name: Deploy
@@ -42,6 +42,6 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN }}
           publish_branch: gh-pages  # 目标仓库的分支
-          publish_dir: ./site
+          publish_dir: ../site
           repository: Chi-Re/MindustryModDocs  # 目标仓库的全名
         
