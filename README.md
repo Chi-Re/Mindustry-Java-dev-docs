@@ -10,7 +10,7 @@ Mindustry 主要作者 Anuken 在 Github 上提供了 Mod 开发环境的模板�
 
 下载地址：https://github.com/Anuken/MindustryJavaModTemplate
 
-这里建议看Liplum的[基础教程](https://www.yuque.com/liplum/nncx8g)，java学习可以看[韩老师的教程](https://www.bilibili.com/video/BV1fh411y7R8/?spm_id_from=333.337.search-card.all.click)
+这里建议看Liplum的[基础教程](https://www.yuque.com/liplum/nncx8g)，java学习可以看[韩老师的教程](https://www.bilibili.com/video/BV1fh411y7R8)
 
 ***
 ## 游戏性内容(如:方块，物品，星球)
